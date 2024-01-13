@@ -28,7 +28,7 @@ func Create(c *fiber.Ctx) error {
 
 func Getall(c *fiber.Ctx) error {
 	var paslons []models.Paslon
-	err := database.DB.Find(&paslons).Error
+	err := database.DB.Preload("Partais").Find(&paslons).Error
 
 	if err != nil {
 		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
@@ -45,7 +45,7 @@ func Getall(c *fiber.Ctx) error {
 func GetOne(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var paslon models.Paslon
-	err := database.DB.First(&paslon, id).Error
+	err := database.DB.Preload("Partais").First(&paslon, id).Error
 
 	if err != nil {
 		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{

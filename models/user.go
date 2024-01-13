@@ -9,3 +9,13 @@ type User struct{
 	Password   string  `goerm:"type:varchar(250)" json:"password"`
 	Role       string  `goerm:"type:varchar(250)" json:"role"`
 }
+
+type UserResponse struct {
+	ID       int    `json:"id"`
+	Fullname string `json:"Fullname"`
+}
+
+
+func (UserResponse) TableName() string {
+	return "users"
+}

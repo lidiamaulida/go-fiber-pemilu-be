@@ -8,7 +8,7 @@ import (
 
 func Getall(c *fiber.Ctx) error {
 	var voters []models.Voter
-	err := database.DB.Find(&voters).Error
+	err := database.DB.Preload("User").Preload("Paslon").Find(&voters).Error
 
 	if err != nil {
 		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
@@ -25,7 +25,7 @@ func Getall(c *fiber.Ctx) error {
 func GetOne(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var voter models.Voter
-	err := database.DB.First(&voter, id).Error
+	err := database.DB.Preload("User").Preload("Paslon").First(&voter, id).Error
 
 	if err != nil {
 		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
